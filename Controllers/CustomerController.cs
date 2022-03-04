@@ -8,12 +8,6 @@ namespace mvc_with_avr.Controllers
 {
     public class CustomerController : Controller
     {
-        public ActionResult ClearFilter()
-        {
-            Session.Remove("filter");
-            return RedirectToAction("Index", new { page = 1 });
-        }
-
         public ActionResult Index(int? page)
         {
             int pageNumber = (page.HasValue) ? page.Value : 1;
@@ -39,10 +33,18 @@ namespace mvc_with_avr.Controllers
         }
 
         [HttpPost]
-        public ActionResult Filter(string filter)
+        public ActionResult SetFilter(string filter)
         {
             Session["filter"] = filter;
             return RedirectToAction("Index", new { page = 1 }); 
         }
+
+        public ActionResult ClearFilter()
+        {
+            Session.Remove("filter");
+            return RedirectToAction("Index", new { page = 1 });
+        }
+
+
     }
 }

@@ -18,7 +18,7 @@
 
 <div class="right-justified-container">
 
-    @using (Html.BeginForm("Filter", "Customer", FormMethod.Post, new { @class = "mr-1" }))
+    @using (Html.BeginForm("SetFilter", "Customer", FormMethod.Post, new { @class = "mr-1" }))
     {
         <input type="Text" name="filter" id="filter" value="@filter" />
         <button class="btn btn-primary btn-sm" type="submit">Filter</button>
