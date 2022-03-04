@@ -7,32 +7,41 @@
 @{
     ViewBag.Title = "Customer List";
     ViewBag.Message = "Populated with ANSA Visual RPG and DataGate";
-    string disabledPreviousButton = (ViewBag.PrevPage <= 1) ? "disabled-anchor" : "";
-    string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor"; 
-}
+    string disabledPreviousButton = (ViewBag.NextPage == 2) ? "disabled-anchor" : "";
+    string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor";
+    string disabledFilterButton = (Session["whereClause"] == null) ? "disabled-anchor" : "";
+ }
 
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
 <div class="buttons-container">
-    <div class="mr-3">
-        <form action="form1" method="post">
-            <input type="Text" name="search" id="search"/>
-            <button class="btn btn-primary btn-sm" type="submit">Search</button>
-        </form>
+
+    @using (Html.BeginForm("Search", "Customer", FormMethod.Post, new { @class = "mr-3" }))
+    {
+        <input type="Text" name="search" id="search" />
+        <button class="btn btn-primary btn-sm" type="submit">Filter</button>
+    }
+    
+    <div>
+       <a href="@Url.Action("clearSearch", "customer")"
+          class="btn btn-primary btn-sm mr-3 @disabledFilterButton">Clear filter</a>
     </div>
 
     <div class="mr-3">
         Note that the Edit and Delete buttons aren't hooked up.
     </div>
-    <div>
-        <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })" 
-           class="btn btn-primary btn-sm active mr-3 @disabledPreviousButton">Prev page</a>
 
-        <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })" 
-           class="btn btn-primary btn-sm active @disabledNextButton">Next page</a>
+    <div>
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })"
+           class="btn btn-primary btn-sm mr-3 @disabledPreviousButton">Prev page</a>
+
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })"
+           class="btn btn-primary btn-sm @disabledNextButton">Next page</a>
     </div>
-</div> 
+</div>
+
+@Html.Hidden("whereclause", (object)ViewBag.WhereClause)
 
 <table class="table">
     <tr>
