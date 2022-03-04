@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<mvc_with_avr.Models.CustomerPageModel>
+
+@{
+    ViewBag.Title = "Customer List";
+    ViewBag.Message = "Populated with ANSA Visual RPG and DataGate";
+    string disabledPreviousButton = (ViewBag.PrevPage <= 1) ? "disabled-anchor" : "";
+    string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor"; 
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="buttons-container">
+    <div class="mr-3">
+        Note that the Edit and Delete buttons aren't hooked up.
+    </div>
+    <div>
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })" 
+           class="btn btn-primary btn-sm active mr-3 @disabledPreviousButton">Prev page</a>
+
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })" 
+           class="btn btn-primary btn-sm active @disabledNextButton">Next page</a>
+    </div>
+</div> 
+
+<table class="table">
+    <tr>
+        <th>
+            Number
+        </th>
+        <th>
+            Name
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CMCustNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CMName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Customer", new { id = item.CMCustNo }) |
+                @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.CMCustNo })
+            </td>
+        </tr>
+    }
+</table>
