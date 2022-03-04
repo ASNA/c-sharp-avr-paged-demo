@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -17,14 +17,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ASNA Visual RPG/C# demo", "Index", "Home", 
+                @Html.ActionLink("C#-ASNA Visual RPG DLL demo", "Index", "Home", 
                      new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Customers", "Index", "customer", new { page = 1 })</li>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
             </div>
         </div>
     </div>
@@ -32,7 +26,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>ASNA Visual RPG and DataGate working with C#</p>
+            <p>C# with ASNA Visual RPG and DataGate</p>
         </footer>
     </div>
 

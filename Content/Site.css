@@ -60,3 +60,34 @@ textarea {
     width: 14rem;
 }
 
+
+/* 
+    Zebra stripe an HTML table.
+*/
+
+.zebra-stripe tr:nth-child(even) {
+    background-color: rgba(224, 224, 224, .3);
+}
+
+.zebra-stripe tr:nth-child(odd) {
+    background-color: rgba(51, 170, 51, .1);
+}
+
+.zebra-stripe tr:first-child, .table-footer {
+    background-color: rgba(224, 224, 224, 9);
+    color: black;
+    border-bottom: 1px solid black;
+}
+
+.zebra-stripe tr > td, .zebra-stripe tr > th, .table-footer {
+    padding: .4rem;
+}
+
+.table-footer {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.zebra-stripe tr:hover {
+    background-color: rgba(245, 255, 144, 0.93);
+}
