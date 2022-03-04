@@ -31,6 +31,9 @@
 
 
     <div>
+        <a href="@Url.Action("index", "customer", new { page = 1 })"
+           class="btn btn-primary btn-sm mr-1 @disabledPreviousButton">First page</a>
+
         <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })"
            class="btn btn-primary btn-sm mr-1 @disabledPreviousButton">Prev page</a>
 
