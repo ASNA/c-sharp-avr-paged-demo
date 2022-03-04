@@ -51,6 +51,8 @@ namespace ASNA.IBMiAccess
 
             MorePagesToShow = pd.MoreRecords;
 
+            DGDBManager.Disconnect();
+
             return this.Customers;
         }
 

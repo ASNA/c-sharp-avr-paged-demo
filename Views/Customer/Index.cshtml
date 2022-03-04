@@ -6,7 +6,7 @@
 
 @{
     ViewBag.Title = "Customer List";
-    ViewBag.Message = "Populated with ANSA Visual RPG and DataGate";
+    ViewBag.Message = "Written using C# referencing a couple of ASNA Visual RPG and DataGate DLLs";
     string disabledPreviousButton = (ViewBag.NextPage == 2) ? "disabled-anchor" : "";
     string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor";
     string disabledFilterButton = (Session["filter"] == null) ? "disabled-anchor" : "";
@@ -16,23 +16,23 @@
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
-<div class="buttons-container">
+<div class="right-justified-container">
 
-    @using (Html.BeginForm("Search", "Customer", FormMethod.Post, new { @class = "mr-3" }))
+    @using (Html.BeginForm("Filter", "Customer", FormMethod.Post, new { @class = "mr-1" }))
     {
-        <input type="Text" name="search" id="search" value="@filter" />
+        <input type="Text" name="filter" id="filter" value="@filter" />
         <button class="btn btn-primary btn-sm" type="submit">Filter</button>
     }
 
     <div>
-        <a href="@Url.Action("clearSearch", "customer")"
+        <a href="@Url.Action("clearFilter", "customer")"
            class="btn btn-primary btn-sm mr-3 @disabledFilterButton">Clear filter</a>
     </div>
 
 
     <div>
         <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })"
-           class="btn btn-primary btn-sm mr-3 @disabledPreviousButton">Prev page</a>
+           class="btn btn-primary btn-sm mr-1 @disabledPreviousButton">Prev page</a>
 
         <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })"
            class="btn btn-primary btn-sm @disabledNextButton">Next page</a>
@@ -41,13 +41,13 @@
 
 <table class="table">
     <tr>
-        <th>
+        <th class="col-number">
             Number
         </th>
-        <th>
+        <th class="col-name">
             Name
         </th>
-        <th>Action</th>
+        <th class="col-action">Action</th>
     </tr>
 
     @foreach (var item in Model)
@@ -67,6 +67,6 @@
     }
 </table>
 
-<div>
+<div class="right-justified-container">
     Note that the Edit and Delete buttons aren't hooked up.
 </div>

@@ -8,7 +8,7 @@ namespace mvc_with_avr.Controllers
 {
     public class CustomerController : Controller
     {
-        public ActionResult ClearSearch()
+        public ActionResult ClearFilter()
         {
             Session.Remove("filter");
             return RedirectToAction("Index", new { page = 1 });
@@ -29,6 +29,7 @@ namespace mvc_with_avr.Controllers
             ViewBag.MorePages = pdm.MorePagesToShow;
             ViewBag.NextPage = pageNumber + 1;
             ViewBag.PrevPage = pageNumber - 1;
+
             return View(cpm);
         }
 
@@ -38,9 +39,9 @@ namespace mvc_with_avr.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string search)
+        public ActionResult Filter(string filter)
         {
-            Session["filter"] = search;
+            Session["filter"] = filter;
             return RedirectToAction("Index", new { page = 1 }); 
         }
     }
