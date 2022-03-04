@@ -24,7 +24,7 @@ textarea {
 }
 
 
-.buttons-container {
+.right-justified-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -35,7 +35,28 @@ textarea {
     margin-right: 3rem;
 }
 
+.mr-2 {
+    margin-right: 2rem;
+}
+
+.mr-1 {
+    margin-right: 1rem;
+}
+
 .disabled-anchor {
     pointer-events: none;
     color: gray !important;
 }
+
+.col-number {
+    width: 9rem;
+}
+
+.col-name {
+    width: auto;
+}
+
+.col-action {
+    width: 14rem;
+}
+

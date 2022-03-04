@@ -12,6 +12,8 @@ namespace ASNA.IBMiAccess
 
         List<CustomerPageModel> Customers = new List<CustomerPageModel>();
 
+        public string WhereClause { get; set; } = "";
+
         public List<CustomerPageModel> GetPageData(int PageNumber)
         {
             ASNA.VisualRPG.Runtime.Database DGDB;
@@ -32,6 +34,12 @@ namespace ASNA.IBMiAccess
             pd.AddSQLSelect("select cmcustno, cmname");
             // Add FROM clauses. 
             pd.AddSQLFrom("from examples/cmastnewL2");
+
+            // Add WHERE clause if provided. 
+            if (!string.IsNullOrEmpty(this.WhereClause)) {
+                pd.AddSQLWhere(this.WhereClause);
+            } 
+
             // Add ORDER BY clause.
             pd.AddSQLOrderBy("order by cmname, cmcustno");
 
@@ -42,6 +50,8 @@ namespace ASNA.IBMiAccess
             pd.WriteThenReadTempFile(PageNumber);
 
             MorePagesToShow = pd.MoreRecords;
+
+            DGDBManager.Disconnect();
 
             return this.Customers;
         }

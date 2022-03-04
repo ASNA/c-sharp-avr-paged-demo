@@ -6,36 +6,48 @@
 
 @{
     ViewBag.Title = "Customer List";
-    ViewBag.Message = "Populated with ANSA Visual RPG and DataGate";
-    string disabledPreviousButton = (ViewBag.PrevPage <= 1) ? "disabled-anchor" : "";
-    string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor"; 
+    ViewBag.Message = "Written using C# referencing a couple of ASNA Visual RPG and DataGate DLLs";
+    string disabledPreviousButton = (ViewBag.NextPage == 2) ? "disabled-anchor" : "";
+    string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor";
+    string disabledFilterButton = (Session["filter"] == null) ? "disabled-anchor" : "";
+    string filter = (Session["filter"] != null) ? Session["filter"].ToString() : "";
 }
 
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
-<div class="buttons-container">
-    <div class="mr-3">
-        Note that the Edit and Delete buttons aren't hooked up.
-    </div>
-    <div>
-        <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })" 
-           class="btn btn-primary btn-sm active mr-3 @disabledPreviousButton">Prev page</a>
+<div class="right-justified-container">
 
-        <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })" 
-           class="btn btn-primary btn-sm active @disabledNextButton">Next page</a>
+    @using (Html.BeginForm("Filter", "Customer", FormMethod.Post, new { @class = "mr-1" }))
+    {
+        <input type="Text" name="filter" id="filter" value="@filter" />
+        <button class="btn btn-primary btn-sm" type="submit">Filter</button>
+    }
+
+    <div>
+        <a href="@Url.Action("clearFilter", "customer")"
+           class="btn btn-primary btn-sm mr-3 @disabledFilterButton">Clear filter</a>
     </div>
-</div> 
+
+
+    <div>
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })"
+           class="btn btn-primary btn-sm mr-1 @disabledPreviousButton">Prev page</a>
+
+        <a href="@Url.Action("index", "customer", new { page = ViewBag.NextPage })"
+           class="btn btn-primary btn-sm @disabledNextButton">Next page</a>
+    </div>
+</div>
 
 <table class="table">
     <tr>
-        <th>
+        <th class="col-number">
             Number
         </th>
-        <th>
+        <th class="col-name">
             Name
         </th>
-        <th>Action</th>
+        <th class="col-action">Action</th>
     </tr>
 
     @foreach (var item in Model)
@@ -54,3 +66,7 @@
         </tr>
     }
 </table>
+
+<div class="right-justified-container">
+    Note that the Edit and Delete buttons aren't hooked up.
+</div>
