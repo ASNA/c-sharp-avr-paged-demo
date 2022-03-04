@@ -12,13 +12,21 @@ namespace mvc_with_avr.Controllers
             int pageNumber = (page.HasValue) ? page.Value : 1;
 
             PagedDataManager pdm = new PagedDataManager();
-            List<CustomerPageModel> cpm = 
+            List<CustomerPageModel> cpm =
                    pdm.GetPageData(PageNumber: pageNumber);
 
-            ViewBag.MorePages = pdm.MorePagesToShow; 
+            ViewBag.MorePages = pdm.MorePagesToShow;
             ViewBag.NextPage = ++pageNumber;
             ViewBag.PrevPage = pageNumber - 2;
             return View(cpm);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string search)
+        {
+            string formSearch = search;
+
+            return View();
         }
     }
 }
