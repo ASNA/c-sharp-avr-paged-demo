@@ -10,7 +10,7 @@ namespace mvc_with_avr.Controllers
     {
         public ActionResult ClearSearch()
         {
-            Session.Remove("whereClause");
+            Session.Remove("filter");
             return RedirectToAction("Index", new { page = 1 });
         }
 
@@ -19,13 +19,12 @@ namespace mvc_with_avr.Controllers
             int pageNumber = (page.HasValue) ? page.Value : 1;
 
             PagedDataManager pdm = new PagedDataManager();
-            if (Session["whereClause"] != null) 
+            if (Session["filter"] != null) 
             {
-                pdm.WhereClause = Session["whereClause"].ToString();
+                pdm.WhereClause = getWhereClause(Session["filter"].ToString());
             }
 
-            List<CustomerPageModel> cpm =
-                   pdm.GetPageData(PageNumber: pageNumber);
+            List<CustomerPageModel> cpm = pdm.GetPageData(PageNumber: pageNumber);
 
             ViewBag.MorePages = pdm.MorePagesToShow;
             ViewBag.NextPage = pageNumber + 1;
@@ -33,12 +32,15 @@ namespace mvc_with_avr.Controllers
             return View(cpm);
         }
 
+        private string getWhereClause(string filter)
+        {
+            return String.Format("WHERE LOWER(CONCAT(cmcustno,trim(cmname))) LIKE '%{0}%'", filter.ToLower().Trim());
+        }
+
         [HttpPost]
         public ActionResult Search(string search)
         {
-            string whereClause = String.Format("WHERE LOWER(CONCAT(cmcustno,trim(cmname))) LIKE '%{0}%'", search.ToLower().Trim());
-            Session["whereClause"] = whereClause;
-
+            Session["filter"] = search;
             return RedirectToAction("Index", new { page = 1 }); 
         }
     }

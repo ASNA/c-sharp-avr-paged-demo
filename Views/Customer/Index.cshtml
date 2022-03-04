@@ -9,8 +9,9 @@
     ViewBag.Message = "Populated with ANSA Visual RPG and DataGate";
     string disabledPreviousButton = (ViewBag.NextPage == 2) ? "disabled-anchor" : "";
     string disabledNextButton = (ViewBag.MorePages) ? "" : "disabled-anchor";
-    string disabledFilterButton = (Session["whereClause"] == null) ? "disabled-anchor" : "";
- }
+    string disabledFilterButton = (Session["filter"] == null) ? "disabled-anchor" : "";
+    string filter = (Session["filter"] != null) ? Session["filter"].ToString() : "";
+}
 
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
@@ -19,18 +20,15 @@
 
     @using (Html.BeginForm("Search", "Customer", FormMethod.Post, new { @class = "mr-3" }))
     {
-        <input type="Text" name="search" id="search" />
+        <input type="Text" name="search" id="search" value="@filter" />
         <button class="btn btn-primary btn-sm" type="submit">Filter</button>
     }
-    
+
     <div>
-       <a href="@Url.Action("clearSearch", "customer")"
-          class="btn btn-primary btn-sm mr-3 @disabledFilterButton">Clear filter</a>
+        <a href="@Url.Action("clearSearch", "customer")"
+           class="btn btn-primary btn-sm mr-3 @disabledFilterButton">Clear filter</a>
     </div>
 
-    <div class="mr-3">
-        Note that the Edit and Delete buttons aren't hooked up.
-    </div>
 
     <div>
         <a href="@Url.Action("index", "customer", new { page = ViewBag.PrevPage })"
@@ -40,8 +38,6 @@
            class="btn btn-primary btn-sm @disabledNextButton">Next page</a>
     </div>
 </div>
-
-@Html.Hidden("whereclause", (object)ViewBag.WhereClause)
 
 <table class="table">
     <tr>
@@ -70,3 +66,7 @@
         </tr>
     }
 </table>
+
+<div>
+    Note that the Edit and Delete buttons aren't hooked up.
+</div>
