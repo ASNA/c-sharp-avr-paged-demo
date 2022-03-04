@@ -22,7 +22,7 @@ namespace ASNA.IBMiAccess
             DGDB = DGDBManager.GetConnectionForAVR();
 
             PagedData pd = new PagedData(DGDB: DGDB, 
-                                         LibraryName:"qtemp", 
+                                         LibraryName: "qtemp", 
                                          ProgramLibrary: "rpzimmie", 
                                          RPGProgramToCall: "sqlimmed", 
                                          PageSize: PAGE_SIZE, 
