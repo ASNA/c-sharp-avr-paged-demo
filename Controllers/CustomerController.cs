@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using ASNA.IBMiAccess;
+using System.Diagnostics;
 using mvc_with_avr.Models;
 
 namespace mvc_with_avr.Controllers
@@ -10,6 +11,9 @@ namespace mvc_with_avr.Controllers
     {
         public ActionResult Index(int? page)
         {
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
             CustomerPagedModelViewModel viewmodel = new CustomerPagedModelViewModel();
 
             int pageNumber = (page.HasValue) ? page.Value : 1;
@@ -21,6 +25,9 @@ namespace mvc_with_avr.Controllers
             }
 
             List<CustomerPageModel> cpm = pdm.GetPageData(PageNumber: pageNumber);
+
+            sw.Stop();
+            ViewBag.Milliseconds = sw.ElapsedMilliseconds.ToString("#,###");
 
             ViewBag.MorePages = pdm.MorePagesToShow;
             ViewBag.NextPage = pageNumber + 1;
