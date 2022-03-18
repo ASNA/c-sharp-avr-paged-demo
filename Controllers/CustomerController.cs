@@ -10,6 +10,8 @@ namespace mvc_with_avr.Controllers
     {
         public ActionResult Index(int? page)
         {
+            CustomerPagedModelViewModel viewmodel = new CustomerPagedModelViewModel();
+
             int pageNumber = (page.HasValue) ? page.Value : 1;
 
             PagedDataManager pdm = new PagedDataManager();
@@ -24,7 +26,9 @@ namespace mvc_with_avr.Controllers
             ViewBag.NextPage = pageNumber + 1;
             ViewBag.PrevPage = pageNumber - 1;
 
-            return View(cpm);
+            viewmodel.Customers = cpm;
+
+            return View(viewmodel);
         }
 
         private string getWhereClause(string filter)

@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model IEnumerable<mvc_with_avr.Models.CustomerPageModel>
+@model  mvc_with_avr.Models.CustomerPagedModelViewModel
 
 @{
     ViewBag.Title = "Customer List";
@@ -52,7 +52,7 @@
         <th class="col-action">Action</th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Customers)
     {
         <tr>
             <td>
