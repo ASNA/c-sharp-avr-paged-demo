@@ -88,6 +88,6 @@ textarea {
     border-right: 1px solid black;
 }
 
-.zebra-stripe tr>td:hover {
+.zebra-stripe tr:not(:first-child):hover {
     background-color: rgba(245, 255, 144, 0.93);
 }
